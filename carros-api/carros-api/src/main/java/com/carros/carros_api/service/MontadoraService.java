@@ -32,4 +32,8 @@ public class MontadoraService {
         montadoraValidator.validar(montadora);
         montadoraRepository.save(montadora);
     }
+
+    public void deletar(Montadora montadora) {
+        montadoraRepository.delete(montadora);
+    }
 }

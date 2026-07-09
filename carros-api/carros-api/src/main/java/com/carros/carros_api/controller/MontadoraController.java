@@ -62,4 +62,14 @@ public class MontadoraController {
                     return ResponseEntity.noContent().build();
                 }).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Object> deletarMontadora(@PathVariable String id) {
+        return montadoraService.acharPorId(UUID.fromString(id))
+                .map(montadora -> {
+                    montadoraService.deletar(montadora);
+                    return ResponseEntity.noContent().build();
+                }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }
