@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -43,6 +44,16 @@ public class MontadoraController {
                     return ResponseEntity.ok(dto);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MontadoraDTO>> pesquisaParam(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String paisOrigem
+    ) {
+        List<Montadora> listaEntity = montadoraService.pesquisar(nome, paisOrigem);
+        List<MontadoraDTO> listDTO = listaEntity.stream().map(mapper::toDTO).toList();
+        return ResponseEntity.ok(listDTO);
     }
 
     @PutMapping("{id}")
