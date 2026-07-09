@@ -1,0 +1,42 @@
+-- 1. CRIAR ENUM PARA AS CATEGORIAS DE VEÍCULOS
+CREATE TYPE categoria_veiculo AS ENUM ('SEDAN', 'SUV', 'HATCH', 'PICKUP', 'ESPORTIVO');
+
+-- 2. CRIAR TABELA DE MONTADORAS (Precisa ser criada primeiro, pois Veículo depende dela)
+CREATE TABLE montadoras (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome VARCHAR(100) NOT NULL,
+    data_fundacao DATE NOT NULL,
+    pais_origem VARCHAR(50) NOT NULL,
+
+    -- Campos Lógicos e de Auditoria
+    data_cadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_ultima_atualizacao TIMESTAMP,
+    usuario_ultima_atualizacao VARCHAR(100),
+
+    -- Regra de Negócio: Não permitir nome + data_fundacao + pais_origem duplicados
+    CONSTRAINT uk_montadora_duplicada UNIQUE (nome, data_fundacao, pais_origem)
+);
+
+-- 3. CRIAR TABELA DE VEÍCULOS
+CREATE TABLE veiculos (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    chassi VARCHAR(17) NOT NULL,
+    modelo VARCHAR(100) NOT NULL,
+    data_fabricacao DATE NOT NULL,
+    categoria categoria_veiculo,
+    preco NUMERIC(12, 2), -- Recomendado para valores monetários (Até 999.999.999,99)
+    montadora_id UUID NOT NULL,
+
+    -- Campos Lógicos e de Auditoria
+    data_cadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_ultima_atualizacao TIMESTAMP,
+    usuario_ultima_atualizacao VARCHAR(100),
+
+    -- Chave Estrangeira (Relacionamento com Montadora)
+    CONSTRAINT fk_veiculo_montadora FOREIGN KEY (montadora_id)
+        REFERENCES montadoras (id) ON DELETE RESTRICT,
+        -- ON DELETE RESTRICT garante a Regra de Negócio: Não permite excluir montadora com veículo vinculado!
+
+    -- Regra de Negócio: Não permitir cadastrar chassi duplicado
+    CONSTRAINT uk_veiculo_chassi UNIQUE (chassi)
+);
