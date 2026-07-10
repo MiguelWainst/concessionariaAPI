@@ -1,0 +1,19 @@
+package com.carros.carros_api.service;
+
+import com.carros.carros_api.entity.Veiculo;
+import com.carros.carros_api.repository.VeiculoRepository;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@Data
+@RequiredArgsConstructor
+public class VeiculoService {
+
+    private final VeiculoRepository veiculoRepository;
+
+    public void salvar(Veiculo veiculo) {
+        veiculoRepository.save(veiculo);
+    }
+}
