@@ -18,9 +18,9 @@ public record VeiculoDTO(
         @NotBlank(message = "A data de fabricação é obrigatória.")
         String dataFabricacao,
         CategoriaVeiculo categoria,
-        @Max(value = 14, message = "Valor inválido, muito grande.")
         BigDecimal preco,
         @NotNull(message = "O idmontadora é obrigatória.")
-        UUID idMontadora
+        UUID idMontadora,
+        MontadoraDTO montadora
 ) {
 }

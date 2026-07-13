@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @Data
 @RequiredArgsConstructor
@@ -15,5 +18,9 @@ public class VeiculoService {
 
     public void salvar(Veiculo veiculo) {
         veiculoRepository.save(veiculo);
+    }
+
+    public Optional<Veiculo> buscarPorId(UUID id) {
+        return veiculoRepository.findById(id);
     }
 }
