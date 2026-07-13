@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -34,6 +36,7 @@ public class Veiculo {
     public LocalDate dataFabricacao;
 
     @Enumerated
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     public CategoriaVeiculo categoria;
 
     public BigDecimal preco;
@@ -47,9 +50,9 @@ public class Veiculo {
     public LocalDate dataCadastro;
 
     @LastModifiedDate
-    @Value("data-ultima-atualizacao")
+    @Column(name = "data_ultima_atualizacao")
     public LocalDate dataAtualizacao;
 
-    @Value("usuario-ultima-atualizacao")
+    @Column(name = "usuario_ultima_atualizacao")
     public String usuarioAtualizacao;
 }

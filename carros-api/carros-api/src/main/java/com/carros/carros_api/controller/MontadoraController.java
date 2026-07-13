@@ -2,7 +2,7 @@ package com.carros.carros_api.controller;
 
 import com.carros.carros_api.controller.dto.MontadoraDTO;
 import com.carros.carros_api.entity.Montadora;
-import com.carros.carros_api.mapper.MontadoraMapper;
+import com.carros.carros_api.controller.mapper.MontadoraMapper;
 import com.carros.carros_api.service.MontadoraService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

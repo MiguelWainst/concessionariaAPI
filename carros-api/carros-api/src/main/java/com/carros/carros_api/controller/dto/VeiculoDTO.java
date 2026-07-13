@@ -20,7 +20,7 @@ public record VeiculoDTO(
         CategoriaVeiculo categoria,
         @Max(value = 14, message = "Valor inválido, muito grande.")
         BigDecimal preco,
-        @NotNull(message = "A montadora é obrigatória.")
-        MontadoraDTO montadora
+        @NotNull(message = "O idmontadora é obrigatória.")
+        UUID idMontadora
 ) {
 }
