@@ -16,7 +16,7 @@ public class MontadoraValidator {
 
     public void validar(Montadora montadora) {
         if (existeMontadora(montadora)) {
-            throw new RegistroDuplicadoException("Esta montadora já está cadastrado!");
+            throw new RegistroDuplicadoException("Esta montadora já está cadastrada!");
         }
     }
 

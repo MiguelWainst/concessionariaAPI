@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     public ErroResposta handlerRegistroDuplicadoException(RegistroDuplicadoException e) {
         return new ErroResposta(
                 HttpStatus.CONFLICT.value(),
-                "Registro Duplicado!",
+                "Registro Duplicado: " + e.getMessage(),
                 List.of()
         );
     }
