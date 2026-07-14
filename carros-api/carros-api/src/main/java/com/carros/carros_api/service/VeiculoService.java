@@ -34,4 +34,8 @@ public class VeiculoService {
         veiculoValidator.validar(veiculo);
         veiculoRepository.save(veiculo);
     }
+
+    public void deletar(Veiculo veiculo) {
+        veiculoRepository.delete(veiculo);
+    }
 }

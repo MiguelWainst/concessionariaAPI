@@ -56,4 +56,12 @@ public class VeiculoController implements GenericController{
             return ResponseEntity.noContent().build();
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deletar(@PathVariable String id) {
+        return veiculoService.buscarPorId(UUID.fromString(id)).map(veiculo -> {
+            veiculoService.deletar(veiculo);
+            return ResponseEntity.noContent().build();
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
