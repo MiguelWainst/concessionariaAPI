@@ -1,6 +1,7 @@
 package com.carros.carros_api.controller;
 
-import com.carros.carros_api.controller.dto.VeiculoDTO;
+import com.carros.carros_api.controller.dto.CadastroVeiculoDTO;
+import com.carros.carros_api.controller.dto.PesquisaVeiculoDTO;
 import com.carros.carros_api.controller.mapper.VeiculoMapper;
 import com.carros.carros_api.entity.Veiculo;
 import com.carros.carros_api.service.VeiculoService;
@@ -21,7 +22,7 @@ public class VeiculoController implements GenericController{
     private final VeiculoMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@RequestBody @Valid VeiculoDTO dto) {
+    public ResponseEntity<Void> salvar(@RequestBody @Valid CadastroVeiculoDTO dto) {
         Veiculo entity = mapper.toEntity(dto);
         veiculoService.salvar(entity);
         URI location = gerarHeaderLocation(entity.getId());
@@ -29,10 +30,10 @@ public class VeiculoController implements GenericController{
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<VeiculoDTO> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<PesquisaVeiculoDTO> buscarPorId(@PathVariable String id) {
         return veiculoService.buscarPorId(UUID.fromString(id))
                 .map(veiculo -> {
-                    VeiculoDTO dto = mapper.toDTO(veiculo);
+                    PesquisaVeiculoDTO dto = mapper.toDTO(veiculo);
                     return ResponseEntity.ok(dto);
                 }).orElseGet(() -> ResponseEntity.notFound().build());
     }

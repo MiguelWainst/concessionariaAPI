@@ -1,6 +1,7 @@
 package com.carros.carros_api.controller.mapper;
 
-import com.carros.carros_api.controller.dto.VeiculoDTO;
+import com.carros.carros_api.controller.dto.CadastroVeiculoDTO;
+import com.carros.carros_api.controller.dto.PesquisaVeiculoDTO;
 import com.carros.carros_api.entity.Veiculo;
 import com.carros.carros_api.repository.MontadoraRepository;
 import org.mapstruct.Mapper;
@@ -14,7 +15,7 @@ public abstract class VeiculoMapper {
     MontadoraRepository montadoraRepository;
 
     @Mapping(target = "montadora", expression = "java(montadoraRepository.findById(veiculoDTO.idMontadora()).orElse(null))")
-    public abstract Veiculo toEntity(VeiculoDTO veiculoDTO);
+    public abstract Veiculo toEntity(CadastroVeiculoDTO veiculoDTO);
 
-    public abstract VeiculoDTO toDTO(Veiculo veiculo);
+    public abstract PesquisaVeiculoDTO toDTO(Veiculo veiculo);
 }
