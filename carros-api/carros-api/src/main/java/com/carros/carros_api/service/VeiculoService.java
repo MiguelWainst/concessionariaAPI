@@ -1,5 +1,6 @@
 package com.carros.carros_api.service;
 
+import com.carros.carros_api.entity.CategoriaVeiculo;
 import com.carros.carros_api.entity.Veiculo;
 import com.carros.carros_api.repository.VeiculoRepository;
 import com.carros.carros_api.validator.VeiculoValidator;
@@ -47,7 +48,7 @@ public class VeiculoService {
             String chassi,
             String modelo,
             String nomeMontadora,
-            String categoria,
+            CategoriaVeiculo categoria,
             Integer anoFabricacao,
             Integer tamanhoPagina
     ) {

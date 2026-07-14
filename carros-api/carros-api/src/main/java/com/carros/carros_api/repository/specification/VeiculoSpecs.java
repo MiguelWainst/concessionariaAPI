@@ -1,5 +1,6 @@
 package com.carros.carros_api.repository.specification;
 
+import com.carros.carros_api.entity.CategoriaVeiculo;
 import com.carros.carros_api.entity.Veiculo;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -14,11 +15,11 @@ public class VeiculoSpecs {
     }
 
     public static Specification<Veiculo> montadoraLike(String montadora) {
-        return (root, query, cb) -> cb.like(cb.upper(root.get("montadora")), "%" + montadora.toUpperCase() + "%");
+        return (root, query, cb) -> cb.like(cb.upper(root.get("montadora").get("nome")), "%" + montadora.toUpperCase() + "%");
     }
 
-    public static Specification<Veiculo> categoriaEqual(String categoria) {
-        return (root, query, cb) -> cb.equal(cb.upper(root.get("categoria")), "%" + categoria.toUpperCase() + "%");
+    public static Specification<Veiculo> categoriaEqual(CategoriaVeiculo categoria) {
+        return (root, query, cb) -> cb.equal(root.get("categoria"), categoria);
     }
 
     public static Specification<Veiculo> anoFabricacaoEqual(Integer anoFabricacao) {
