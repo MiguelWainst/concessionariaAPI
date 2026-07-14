@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -36,5 +37,23 @@ public class VeiculoController implements GenericController{
                     PesquisaVeiculoDTO dto = mapper.toDTO(veiculo);
                     return ResponseEntity.ok(dto);
                 }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> atualizar(
+            @RequestBody @Valid CadastroVeiculoDTO dto,
+            @PathVariable String id
+    ) {
+        return veiculoService.buscarPorId(UUID.fromString(id)).map(veiculoAchado -> {
+            Veiculo entity = mapper.toEntity(dto);
+            veiculoAchado.setChassi(entity.getChassi());
+            veiculoAchado.setCategoria(entity.getCategoria());
+            veiculoAchado.setModelo(entity.getModelo());
+            veiculoAchado.setMontadora(entity.getMontadora());
+            veiculoAchado.setPreco(entity.getPreco());
+            veiculoAchado.setDataFabricacao(entity.getDataFabricacao());
+            veiculoService.atualizar(veiculoAchado);
+            return ResponseEntity.noContent().build();
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

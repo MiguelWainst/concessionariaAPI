@@ -25,6 +25,6 @@ public class VeiculoValidator {
         if (veiculo.getId() == null) {
             return veiculoOptional.isPresent();
         }
-        return veiculoOptional.isPresent() && !veiculo.getChassi().equals(veiculoOptional.get().chassi);
+        return veiculoOptional.isPresent() && !veiculo.getId().equals(veiculoOptional.get().getId());
     }
 }

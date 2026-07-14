@@ -26,4 +26,12 @@ public class VeiculoService {
     public Optional<Veiculo> buscarPorId(UUID id) {
         return veiculoRepository.findById(id);
     }
+
+    public void atualizar(Veiculo veiculo) {
+        if (veiculo.getId() == null) {
+            throw new RuntimeException("Id nulo, impossível atualizar veículo com id nulo.");
+        }
+        veiculoValidator.validar(veiculo);
+        veiculoRepository.save(veiculo);
+    }
 }
