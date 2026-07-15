@@ -4,11 +4,13 @@ import com.carros.carros_api.controller.dto.ErroCampo;
 import com.carros.carros_api.controller.dto.ErroResposta;
 import com.carros.carros_api.exceptions.RegistroDuplicadoException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
 
@@ -39,4 +41,16 @@ public class GlobalExceptionHandler {
                 List.of()
         );
     }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroResposta handlerMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+        return new ErroResposta(
+                HttpStatus.BAD_REQUEST.value(),
+                "Erro: '" + e.getValue() + "' não é um valor válido para o campo '" + e.getName() + "'",
+                List.of()
+        );
+    }
+
+
 }
