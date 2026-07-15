@@ -3,6 +3,7 @@ package com.carros.carros_api.controller;
 import com.carros.carros_api.controller.dto.CadastroVeiculoDTO;
 import com.carros.carros_api.controller.dto.PesquisaVeiculoDTO;
 import com.carros.carros_api.controller.mapper.VeiculoMapper;
+import com.carros.carros_api.entity.CategoriaVeiculo;
 import com.carros.carros_api.entity.Veiculo;
 import com.carros.carros_api.service.VeiculoService;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -63,5 +65,18 @@ public class VeiculoController implements GenericController{
             veiculoService.deletar(veiculo);
             return ResponseEntity.noContent().build();
         }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PesquisaVeiculoDTO>> listarVeiculosParam(
+            @RequestParam(required = false) String chassi,
+            @RequestParam(required = false) String modelo,
+            @RequestParam(required = false) String nomeMontadora,
+            @RequestParam(required = false) CategoriaVeiculo categoria,
+            @RequestParam(required = false) Integer anoFabricacao
+    ) {
+        List<Veiculo> veiculos = veiculoService.pesquisaParam(chassi, modelo, nomeMontadora, categoria, anoFabricacao, anoFabricacao);
+        List<PesquisaVeiculoDTO> dtos = veiculos.stream().map(mapper::toDTO).toList();
+        return ResponseEntity.ok(dtos);
     }
 }
