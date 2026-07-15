@@ -1,6 +1,6 @@
 # Estágio de Build (Compilação)
 FROM maven:3.9-eclipse-temurin-17 AS build
-COPY . .
+COPY .. .
 RUN mvn clean package -DskipTests
 
 # Estágio de Execução
