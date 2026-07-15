@@ -52,5 +52,13 @@ public class GlobalExceptionHandler {
         );
     }
 
-
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErroResposta handlerRuntimeException(RuntimeException e) {
+        return new ErroResposta(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Erro inesperado! Entre em contato com a administração ou suporte.",
+                List.of()
+        );
+    }
 }
