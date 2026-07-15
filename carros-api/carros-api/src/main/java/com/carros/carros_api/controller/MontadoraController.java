@@ -17,6 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/montadoras")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class MontadoraController {
 
     private final MontadoraMapper mapper;

@@ -19,6 +19,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/veiculos")
+@CrossOrigin(origins = "*")
 public class VeiculoController implements GenericController{
 
     private final VeiculoService veiculoService;
